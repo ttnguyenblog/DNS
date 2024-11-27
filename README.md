@@ -1,8 +1,8 @@
-# DNS
-Script add new DNS
 
-##Example:
+# Script add new DNS
 
+## Example:
+```bash
 platform-api.apic-mgm01.nor.tpb.com             192.168.0.91
 consumer-api.apic-mgm01.nor.tpb.com             192.168.0.91
 cloud-admin-ui.apic-mgm01.nor.tpb.com           192.168.0.91
@@ -15,9 +15,10 @@ apic-cli01.nor.tpb.com                          192.168.0.90
 apic-mgm01.nor.tpb.com                          192.168.0.91
 apic-ana01.nor.tpb.com                          192.168.0.92
 apic-por01.nor.tpb.com                          192.168.0.93
+```
 
-
-##Add Record DNS Forward Lookup Zone
+## Add Record DNS Forward Lookup Zone
+```bash
 Add-DnsServerResourceRecordA -ZoneName "nor.tpb.com" -Name "platform-api.apic-mgm01" -IPv4Address "192.168.0.91"
 Add-DnsServerResourceRecordA -ZoneName "nor.tpb.com" -Name "consumer-api.apic-mgm01" -IPv4Address "192.168.0.91"
 Add-DnsServerResourceRecordA -ZoneName "nor.tpb.com" -Name "cloud-admin-ui.apic-mgm01" -IPv4Address "192.168.0.91"
@@ -30,9 +31,10 @@ Add-DnsServerResourceRecordA -ZoneName "nor.tpb.com" -Name "apic-cli01" -IPv4Add
 Add-DnsServerResourceRecordA -ZoneName "nor.tpb.com" -Name "apic-mgm01" -IPv4Address "192.168.0.91"
 Add-DnsServerResourceRecordA -ZoneName "nor.tpb.com" -Name "apic-ana01" -IPv4Address "192.168.0.92"
 Add-DnsServerResourceRecordA -ZoneName "nor.tpb.com" -Name "apic-por01" -IPv4Address "192.168.0.93"
+```
 
-
-##Add Record DNS Reverse Lookup Zone
+## Add Record DNS Reverse Lookup Zone
+```bash
 Add-DnsServerResourceRecordPtr -ZoneName "0.168.192.in-addr.arpa" -Name "91" -PtrDomainName "platform-api.apic-mgm01.nor.tpb.com"
 Add-DnsServerResourceRecordPtr -ZoneName "0.168.192.in-addr.arpa" -Name "91" -PtrDomainName "consumer-api.apic-mgm01.nor.tpb.com"
 Add-DnsServerResourceRecordPtr -ZoneName "0.168.192.in-addr.arpa" -Name "91" -PtrDomainName "cloud-admin-ui.apic-mgm01.nor.tpb.com"
@@ -44,3 +46,5 @@ Add-DnsServerResourceRecordPtr -ZoneName "0.168.192.in-addr.arpa" -Name "93" -Pt
 Add-DnsServerResourceRecordPtr -ZoneName "0.168.192.in-addr.arpa" -Name "91" -PtrDomainName "apic-mgm01.nor.tpb.com"
 Add-DnsServerResourceRecordPtr -ZoneName "0.168.192.in-addr.arpa" -Name "92" -PtrDomainName "apic-ana01.nor.tpb.com"
 Add-DnsServerResourceRecordPtr -ZoneName "0.168.192.in-addr.arpa" -Name "93" -PtrDomainName "apic-por01.nor.tpb.com"
+```
+
