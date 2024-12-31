@@ -47,7 +47,7 @@ Add-DnsServerResourceRecordPtr -ZoneName "0.168.192.in-addr.arpa" -Name "91" -Pt
 Add-DnsServerResourceRecordPtr -ZoneName "0.168.192.in-addr.arpa" -Name "92" -PtrDomainName "apic-ana01.nor.tpb.com"
 Add-DnsServerResourceRecordPtr -ZoneName "0.168.192.in-addr.arpa" -Name "93" -PtrDomainName "apic-por01.nor.tpb.com"
 ```
-# Lấy các adapter có cấu hình IP
+# Thêm DNS thứ 3
 ```bash
 $networkAdapters = Get-NetAdapter | Where-Object { $_.Status -eq "Up" }
 foreach ($adapter in $networkAdapters) {
