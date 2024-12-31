@@ -47,4 +47,22 @@ Add-DnsServerResourceRecordPtr -ZoneName "0.168.192.in-addr.arpa" -Name "91" -Pt
 Add-DnsServerResourceRecordPtr -ZoneName "0.168.192.in-addr.arpa" -Name "92" -PtrDomainName "apic-ana01.nor.tpb.com"
 Add-DnsServerResourceRecordPtr -ZoneName "0.168.192.in-addr.arpa" -Name "93" -PtrDomainName "apic-por01.nor.tpb.com"
 ```
+# Lấy các adapter có cấu hình IP
+```bash
+$networkAdapters = Get-NetAdapter | Where-Object { $_.Status -eq "Up" }
+foreach ($adapter in $networkAdapters) {
+    # Lấy thông tin DNS hiện tại của adapter
+    $currentDns = (Get-DnsClientServerAddress -InterfaceAlias $adapter.Name).ServerAddresses
+
+    # Kiểm tra nếu DNS thứ 3 chưa có trong danh sách
+    if ($currentDns.Count -lt 3) {
+        # Thêm DNS thứ 3 vào
+        $newDns = $currentDns + "8.8.8.8"  # Thay bằng DNS server bạn muốn thêm
+        Set-DnsClientServerAddress -InterfaceAlias $adapter.Name -ServerAddresses $newDns
+        Write-Output "DNS server thứ 3 đã được thiết lập cho adapter $($adapter.Name)."
+    } else {
+        Write-Output "Adapter $($adapter.Name) đã có đủ 3 DNS servers."
+    }
+}
+```
 
