@@ -65,4 +65,45 @@ foreach ($adapter in $networkAdapters) {
     }
 }
 ```
+## Xoá hàng loạt DNS
 
+```bash
+$ServerFQDN = "ad2012.mangvanphong.com" #Keep the dot (.) at the end
+$ServerHostname = "hnx-ad-01"
+$IPAddress = "100.64.6.53"
+
+$Zones = Get-DnsServerZone | Where-Object { $_.ZoneType -eq "Primary" } |
+Select-Object -ExpandProperty ZoneName
+
+foreach ($Zone in $Zones) {
+    Get-DnsServerResourceRecord -ZoneName $Zone | Where-Object { 
+        $_.RecordData.IPv4Address -eq $IPAddress -or
+        $_.RecordData.NameServer -eq $ServerFQDN -or
+        $_.RecordData.DomainName -eq $ServerFQDN -or
+        $_.RecordData.HostnameAlias -eq $ServerFQDN -or
+        $_.RecordData.MailExchange -eq $ServerFQDN -or
+        $_.HostName -eq $ServerHostname
+    }
+}
+
+
+
+$ServerFQDN = "dc01-2019.exoip.local." #Keep the dot (.) at the end
+$ServerHostname = "dc01-2019"
+$IPAddress = "192.168.1.51"
+
+$Zones = Get-DnsServerZone | Where-Object { $_.ZoneType -eq "Primary" } |
+Select-Object -ExpandProperty ZoneName
+
+foreach ($Zone in $Zones) {
+    Get-DnsServerResourceRecord -ZoneName $Zone | Where-Object { 
+        $_.RecordData.IPv4Address -eq $IPAddress -or
+        $_.RecordData.NameServer -eq $ServerFQDN -or
+        $_.RecordData.DomainName -eq $ServerFQDN -or
+        $_.RecordData.HostnameAlias -eq $ServerFQDN -or
+        $_.RecordData.MailExchange -eq $ServerFQDN -or
+        $_.HostName -eq $ServerHostname
+    } | Remove-DnsServerResourceRecord -ZoneName $Zone -Force -WhatIf
+}
+
+```
